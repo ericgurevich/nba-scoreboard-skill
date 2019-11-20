@@ -1,4 +1,4 @@
-# <img src="https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/robot.svg" card_color="#40DBB0" width="50" height="50" style="vertical-align:bottom"/> Nba Scoreboard
+# <img src="https://image.flaticon.com/icons/svg/79/79543.svg" card_color="#40DBB0" width="50" height="50" style="vertical-align:bottom"/> Nba Scoreboard
 Gets nba scores
 
 ## About
