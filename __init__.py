@@ -23,10 +23,13 @@ class NbaScoreboard(MycroftSkill):
         #fill in score from api
         score = 50
         
-        if team:
-            self.speak("The score for the most recent " + team + " game is " + str(score) + ".")
+        if team is not None:
+            #loading score variables into dialog and speaking from that file
+            self.speak_dialog('Score', {
+                'score1': score,
+                'score2': score})
         else:
-            self.speak("Team not found.")
+            self.speak_dialog('NotFound')
 
 
 def create_skill():
