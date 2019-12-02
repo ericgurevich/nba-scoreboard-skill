@@ -36,42 +36,14 @@ class NbaScoreboard(MycroftSkill):
 
     def initialize(self):
         self.register_entity_file('team.entity')
+        
+        # match team names to api team IDs, obtained from get_teams.py
+        self.teamIDs = {'Hawks': 1, 'Celtics': 2, 'Bullets': 3, 'Nets': 4, 'Hornets': 5, 'Bulls': 6, 'Cavaliers': 7, 'Mavericks': 8, 'Nuggets': 9, 'Pistons': 10, 'Warriors': 11, 'Long-Lions': 12, 'Maccabi Haifa': 13, 'Rockets': 14, 'Pacers': 15, 'Clippers': 16, 'Lakers': 17, 'United': 18, 'Grizzlies': 19, 'Heat': 20, 'Bucks': 21, 'Timberwolves': 22, 'Pelicans': 23, 'Knicks': 24, 'Thunder': 25, 'Magic': 26, '76ers': 27, 'Suns': 28, 'Trail Blazers': 29, 'Kings': 33, 'Spurs': 31, 'Sharks': 32, 'Team Giannis': 34, 'Team LeBron': 35, 'Away': 36, 'Home':
+                        37, 'Raptors': 38, 'USA': 39, 'Jazz': 40, 'Wizards': 41, 'World': 42, 'Paschoalotto/Bauru': 83, 'Fenerbahce Sports Club': 84, 'Olimpia Milano': 85, 'Real Madrid': 86, 'Flamengo': 87, 'FC Barcelona': 88, 'San Lorenzo': 89, '36ers': 90, 'Ducks': 91, 'Breakers': 92, 'Wildcats': 93, 'Franca': 99}
 
-        # match team names to api team IDs
-        self.teamIDs = {
-            'sixers': 27,
-            'seventy sixers': 27,
-            'lakers': 1610612747,
-            'bulls': 1610612741,
-            'chicago bulls': 1610612741,
-            'celtics': 1610612738,
-            'rockets': 1610612745,
-            'mavericks': 1610612742,
-            'hawks': 1610612737,
-            'nets': 1610612751,
-            'hornets': 1610612766,
-            'cavaliers': 1610612739,
-            'nuggets': 1610612742,
-            'pistons': 1610612765,
-            'warriors': 1610612744,
-            'pacers': 1610612754,
-            'clippers': 1610612746,
-            'grizzlies': 1610612763,
-            'heat': 1610612748,
-            'bucks': 1610612749,
-            'timberwolves': 1610612750,
-            'pelicans': 1610612740,
-            'knicks': 1610612752,
-            'thunder': 1610612760,
-            'magic': 1610612753,
-            'suns': 1610612756,
-            'blazers': 1610612757,
-            'kings': 1610612758,
-            'spurs': 1610612759,
-            'raptors': 1610612751,
-            'jazz': 1610612762,
-            'wizards': 1610612764
-        }
+        # because our city's team has a weird name
+        self.teamIDs['Sixers'] = 27
+        self.teamIDs['Seventy Sixers'] = 27
 
     @intent_file_handler('scoreboard.nba.intent')
     def handle_scoreboard_nba(self, message):
