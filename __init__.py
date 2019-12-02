@@ -76,15 +76,15 @@ class NbaScoreboard(MycroftSkill):
 	if team is not None and team in self.teamIDs:
             teamId = int(self.teamIDs[team])
 		
-    	#fill in score from api
-    	v_team, v_score, h_team, h_score = search_game(teamId)
+    	    #fill in score from api
+    	    v_team, v_score, h_team, h_score = search_game(teamId)
 
-        #loading score variables into dialog and speaking from that file
-        self.speak_dialog('Score', {
-            'team1' : v_team,
-            'score1': v_score,
-            'team2' : h_team,
-            'score2': h_score})
+            #loading score variables into dialog and speaking from that file
+            self.speak_dialog('Score', {
+                'team1' : v_team,
+                'score1': v_score,
+                'team2' : h_team,
+                'score2': h_score})
         else:
             self.speak_dialog('NotFound')
 
