@@ -74,10 +74,10 @@ class NbaScoreboard(MycroftSkill):
         team = message.data.get('team')
 		
 		if team is not None and team in self.teamIDs:
-			teamId = int(self.teamIds[team])
+			teamId = int(self.teamIDs[team])
 		
         	#fill in score from api
-        	v_team, v_score, h_team, h_score = search_game(team)
+        	v_team, v_score, h_team, h_score = search_game(teamId)
 
             #loading score variables into dialog and speaking from that file
             self.speak_dialog('Score', {
