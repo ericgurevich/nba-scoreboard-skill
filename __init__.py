@@ -1,5 +1,29 @@
 from mycroft import MycroftSkill, intent_file_handler
+import requests
+from datetime import datetime, timedelta
+import json
 
+API_key = '204720b278msh1c690d8a62476dcp11caa8jsn506e42ddb682'
+API_url = 'https://api-nba-v1.p.rapidapi.com/games/date/'
+header = {
+	"x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
+	"x-rapidapi-key": "204720b278msh1c690d8a62476dcp11caa8jsn506e42ddb682"
+}
+
+#get today's date
+date = datetime.now()
+d = date.strftime('%Y-%m-%d')
+
+def search_game(team):
+    r = requests.get(API_url + '2019-11-30', headers=header)
+    json_data = r.json()
+    j = 0
+    #finding the specific match
+    for x in range(len(json_data['api']['games'])):
+	    if team in json_data['api']['games'][j]['vTeam']['nickName'] or team in json_data['api']['games'][j]['hTeam']['nickName']:
+                return json_data['api']['games'][j]['vTeam']['nickName'], json_data['api']['games'][j]['vTeam']['score']['points'], json_data['api']['games'][j]['hTeam']['nickName'], json_data['api']['games'][j]['hTeam']['score']['points']
+	    j = j + 1
+    return '', 0, '', 0
 
 class NbaScoreboard(MycroftSkill):
     teamIDs = None
@@ -51,17 +75,17 @@ class NbaScoreboard(MycroftSkill):
         team = message.data.get('team')
 
         #fill in score from api
-        score = 50
-        
-        if team is not None and team in teamIDs:
+        v_team, v_score, h_team, h_score = search_game(team)
+
+        if team is not None or v_score is not 0:
             #loading score variables into dialog and speaking from that file
             self.speak_dialog('Score', {
-                'team': team,
-                'score1': score,
-                'score2': score})
+                'team1' : v_team,
+                'score1': v_score,
+                'team2' : h_team,
+                'score2': h_score})
         else:
             self.speak_dialog('NotFound')
-
 
 def create_skill():
     return NbaScoreboard()
