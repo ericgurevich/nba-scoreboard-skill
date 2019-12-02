@@ -19,9 +19,9 @@ def search_game(teamId):
     json_data = r.json()
     results = int(json_data['api']['results'])
     v_team = str(json_data['api']['games'][results - 1]['vTeam']['fullname'])
-	v_score = str(json_data['api']['games'][results - 1]['vTeam']['score']['points'])
-	h_team = str(json_data['api']['games'][results - 1]['hTeam']['fullname'])
-	h_score = str(json_data['api']['games'][results - 1]['hTeam']['score']['points'])
+    v_score = str(json_data['api']['games'][results - 1]['vTeam']['score']['points'])
+    h_team = str(json_data['api']['games'][results - 1]['hTeam']['fullname'])
+    h_score = str(json_data['api']['games'][results - 1]['hTeam']['score']['points'])
 	
     return v_team, v_score, h_team, h_score
 
@@ -73,18 +73,18 @@ class NbaScoreboard(MycroftSkill):
     def handle_scoreboard_nba(self, message):
         team = message.data.get('team')
 		
-		if team is not None and team in self.teamIDs:
-			teamId = int(self.teamIDs[team])
+	if team is not None and team in self.teamIDs:
+            teamId = int(self.teamIDs[team])
 		
-        	#fill in score from api
-        	v_team, v_score, h_team, h_score = search_game(teamId)
+    	#fill in score from api
+    	v_team, v_score, h_team, h_score = search_game(teamId)
 
-            #loading score variables into dialog and speaking from that file
-            self.speak_dialog('Score', {
-                'team1' : v_team,
-                'score1': v_score,
-                'team2' : h_team,
-                'score2': h_score})
+        #loading score variables into dialog and speaking from that file
+        self.speak_dialog('Score', {
+            'team1' : v_team,
+            'score1': v_score,
+            'team2' : h_team,
+            'score2': h_score})
         else:
             self.speak_dialog('NotFound')
 
