@@ -4,29 +4,28 @@ from datetime import datetime, timedelta
 import json
 
 API_key = '204720b278msh1c690d8a62476dcp11caa8jsn506e42ddb682'
-API_url = 'https://api-nba-v1.p.rapidapi.com/games/date/'
+API_url = 'https://api-nba-v1.p.rapidapi.com/games/teamId/'
 header = {
 	"x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
 	"x-rapidapi-key": "204720b278msh1c690d8a62476dcp11caa8jsn506e42ddb682"
 }
 
 #get today's date
-date = datetime.now()
-d = date.strftime('%Y-%m-%d')
+# date = datetime.now()
+# d = date.strftime('%Y-%m-%d')
 
-def search_game(team):
-    r = requests.get(API_url + '2019-11-30', headers=header)
+def search_game(teamId):
+    r = requests.get(API_url + str(teamId), headers=header)
     json_data = r.json()
-    j = 0
-    #finding the specific match
-    for x in range(len(json_data['api']['games'])):
-	    if team in json_data['api']['games'][j]['vTeam']['nickName'] or team in json_data['api']['games'][j]['hTeam']['nickName']:
-                return json_data['api']['games'][j]['vTeam']['nickName'], json_data['api']['games'][j]['vTeam']['score']['points'], json_data['api']['games'][j]['hTeam']['nickName'], json_data['api']['games'][j]['hTeam']['score']['points']
-	    j = j + 1
-    return '', 0, '', 0
+    results = int(json_data['api']['results'])
+    v_team = str(json_data['api']['games'][results - 1]['vTeam']['fullname'])
+	v_score = str(json_data['api']['games'][results - 1]['vTeam']['score']['points'])
+	h_team = str(json_data['api']['games'][results - 1]['hTeam']['fullname'])
+	h_score = str(json_data['api']['games'][results - 1]['hTeam']['score']['points'])
+	
+    return v_team, v_score, h_team, h_score
 
 class NbaScoreboard(MycroftSkill):
-    teamIDs = None
 
     def __init__(self):
         MycroftSkill.__init__(self)
@@ -35,9 +34,9 @@ class NbaScoreboard(MycroftSkill):
         self.register_entity_file('team.entity')
 
         #match team names to api team IDs
-        teamIDs = {
-                'sixers': 1610612755,
-                'seventy sixers': 1610612755,
+        self.teamIDs = {
+                'sixers': 27,
+                'seventy sixers': 27,
 		'lakers': 1610612747,
 		'bulls':1610612741,
 		'chicago bulls':1610612741,
@@ -73,11 +72,13 @@ class NbaScoreboard(MycroftSkill):
     @intent_file_handler('scoreboard.nba.intent')
     def handle_scoreboard_nba(self, message):
         team = message.data.get('team')
+		
+		if team is not None and team in self.teamIDs:
+			teamId = int(self.teamIDs[team])
+		
+        	#fill in score from api
+        	v_team, v_score, h_team, h_score = search_game(teamId)
 
-        #fill in score from api
-        v_team, v_score, h_team, h_score = search_game(team)
-
-        if team is not None or v_score is not 0:
             #loading score variables into dialog and speaking from that file
             self.speak_dialog('Score', {
                 'team1' : v_team,
