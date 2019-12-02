@@ -19,10 +19,10 @@ def search_game(teamId):
     r = requests.get(API_url + str(teamId), headers=header)
     json_data = r.json()
     results = int(json_data['api']['results'])
-    v_team = str(json_data['api']['games'][results - 1]['vTeam']['fullname'])
+    v_team = str(json_data['api']['games'][results - 1]['vTeam']['fullName'])
     v_score = str(json_data['api']['games'][results - 1]
                   ['vTeam']['score']['points'])
-    h_team = str(json_data['api']['games'][results - 1]['hTeam']['fullname'])
+    h_team = str(json_data['api']['games'][results - 1]['hTeam']['fullName'])
     h_score = str(json_data['api']['games'][results - 1]
                   ['hTeam']['score']['points'])
 
