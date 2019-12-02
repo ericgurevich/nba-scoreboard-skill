@@ -19,13 +19,25 @@ def search_game(teamId):
     r = requests.get(API_url + str(teamId), headers=header)
     json_data = r.json()
     results = int(json_data['api']['results'])
-    v_team = str(json_data['api']['games'][results - 1]['vTeam']['fullName'])
-    v_score = str(json_data['api']['games'][results - 1]
-                  ['vTeam']['score']['points'])
-    h_team = str(json_data['api']['games'][results - 1]['hTeam']['fullName'])
-    h_score = str(json_data['api']['games'][results - 1]
-                  ['hTeam']['score']['points'])
+    
+    i = results - 1
 
+    # iterate through results backwards until get to most recent non-zero game
+    while True:
+        v_score = str(json_data['api']['games'][i]
+                      ['vTeam']['score']['points'])
+        h_score = str(json_data['api']['games'][i]
+                      ['hTeam']['score']['points'])
+        
+        if v_score != '0' or h_score != '0':
+            break
+
+        i -= 1
+
+    v_team = str(json_data['api']['games'][i]['vTeam']['fullName'])
+    
+    h_team = str(json_data['api']['games'][i]['hTeam']['fullName'])
+    
     return v_team, v_score, h_team, h_score
 
 
