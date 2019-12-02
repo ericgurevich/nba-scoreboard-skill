@@ -36,14 +36,14 @@ class NbaScoreboard(MycroftSkill):
 
     def initialize(self):
         self.register_entity_file('team.entity')
-        
+
         # match team names to api team IDs, obtained from get_teams.py
-        self.teamIDs = {'Hawks': 1, 'Celtics': 2, 'Bullets': 3, 'Nets': 4, 'Hornets': 5, 'Bulls': 6, 'Cavaliers': 7, 'Mavericks': 8, 'Nuggets': 9, 'Pistons': 10, 'Warriors': 11, 'Long-Lions': 12, 'Maccabi Haifa': 13, 'Rockets': 14, 'Pacers': 15, 'Clippers': 16, 'Lakers': 17, 'United': 18, 'Grizzlies': 19, 'Heat': 20, 'Bucks': 21, 'Timberwolves': 22, 'Pelicans': 23, 'Knicks': 24, 'Thunder': 25, 'Magic': 26, '76ers': 27, 'Suns': 28, 'Trail Blazers': 29, 'Kings': 33, 'Spurs': 31, 'Sharks': 32, 'Team Giannis': 34, 'Team LeBron': 35, 'Away': 36, 'Home':
-                        37, 'Raptors': 38, 'USA': 39, 'Jazz': 40, 'Wizards': 41, 'World': 42, 'Paschoalotto/Bauru': 83, 'Fenerbahce Sports Club': 84, 'Olimpia Milano': 85, 'Real Madrid': 86, 'Flamengo': 87, 'FC Barcelona': 88, 'San Lorenzo': 89, '36ers': 90, 'Ducks': 91, 'Breakers': 92, 'Wildcats': 93, 'Franca': 99}
+        self.teamIDs = {'hawks': 1, 'celtics': 2, 'bullets': 3, 'nets': 4, 'hornets': 5, 'bulls': 6, 'cavaliers': 7, 'mavericks': 8, 'nuggets': 9, 'pistons': 10, 'warriors': 11, 'long-lions': 12, 'maccabi haifa': 13, 'rockets': 14, 'pacers': 15, 'clippers': 16, 'lakers': 17, 'united': 18, 'grizzlies': 19, 'heat': 20, 'bucks': 21, 'timberwolves': 22, 'pelicans': 23, 'knicks': 24, 'thunder': 25, 'magic': 26, '76ers': 27, 'suns': 28, 'trail blazers': 29, 'kings': 33, 'spurs': 31, 'sharks': 32, 'team giannis': 34, 'team lebron': 35, 'away': 36, 'home':
+                        37, 'raptors': 38, 'usa': 39, 'jazz': 40, 'wizards': 41, 'world': 42, 'paschoalotto/bauru': 83, 'fenerbahce sports club': 84, 'olimpia milano': 85, 'real madrid': 86, 'flamengo': 87, 'fc barcelona': 88, 'san lorenzo': 89, '36ers': 90, 'ducks': 91, 'breakers': 92, 'wildcats': 93, 'franca': 99}
 
         # because our city's team has a weird name
-        self.teamIDs['Sixers'] = 27
-        self.teamIDs['Seventy Sixers'] = 27
+        self.teamIDs['sixers'] = 27
+        self.teamIDs['seventy sixers'] = 27
 
     @intent_file_handler('scoreboard.nba.intent')
     def handle_scoreboard_nba(self, message):

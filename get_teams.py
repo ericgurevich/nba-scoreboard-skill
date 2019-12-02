@@ -17,8 +17,8 @@ def get_all_teams():
     teamIDs = {}
 
     for i in range(results):
-        teamIDs[json_data['api']['teams'][i]['nickname']] = int(json_data['api']['teams'][i]['teamId'])
+        teamIDs[str(json_data['api']['teams'][i]['nickname']).lower()] = int(json_data['api']['teams'][i]['teamId'])
 
     print(teamIDs)
-    
+
 get_all_teams()
