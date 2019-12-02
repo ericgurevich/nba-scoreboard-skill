@@ -72,8 +72,8 @@ class NbaScoreboard(MycroftSkill):
     @intent_file_handler('scoreboard.nba.intent')
     def handle_scoreboard_nba(self, message):
         team = message.data.get('team')
-		
-	if team is not None and team in self.teamIDs:
+	
+        if team is not None and team in self.teamIDs:
             teamId = int(self.teamIDs[team])
 		
     	    #fill in score from api
