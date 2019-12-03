@@ -28,9 +28,10 @@ def search_game(teamId):
                       ['vTeam']['score']['points'])
         h_score = str(json_data['api']['games'][i]
                       ['hTeam']['score']['points'])
-        
-        if v_score != '0' or h_score != '0':
-            break
+
+        if v_score != '' or h_score != '':
+            if v_score != '0' or h_score != '0':
+                break
 
         i -= 1
 
