@@ -58,6 +58,38 @@ class NbaScoreboard(MycroftSkill):
         self.teamIDs['sixers'] = 27
         self.teamIDs['seventy sixers'] = 27
 
+	#to offer flexible parsing
+	self.teamIDs['atlanta hawks'] = 1
+	self.teamIDs['boston celtics'] = 2
+	self.teamIDs['brooklyn nets'] = 4
+	self.teamIDs['charlotte hornets'] = 5
+	self.teamIDs['chicago bulls'] = 6
+	self.teamIDs['cleveland cavaliers'] = 7
+	self.teamIDs['dallas mavericks'] = 8
+	self.teamIDs['denver nuggets'] = 9
+	self.teamIDs['detroit pistons'] = 10
+	self.teamIDs['golden state warriors'] = 11
+	self.teamIDs['houston rockets'] = 14
+	self.teamIDs['indiana pacers'] = 15
+	self.teamIDs['los angeles clippers'] = 16
+	self.teamIDs['los angeles lakers'] = 17
+	self.teamIDs['memphis grizzlies'] = 19
+	self.teamIDs['miami heat'] = 20
+	self.teamIDs['milwaukee bucks'] = 21
+	self.teamIDs['minnesota timberwolves'] = 22
+	self.teamIDs['new orleans pelicans'] = 23
+	self.teamIDs['new york knicks'] = 24
+	self.teamIDs['oklahoma city thunder'] = 25
+	self.teamIDs['orlando magic'] = 26
+	self.teamIDs['Philadelphia seventy-sixers'] = 27
+	self.teamIDs['phoenix suns'] = 28
+	self.teamIDs['portland trail blazers'] = 29
+	self.teamIDs['sacremento kings'] = 30
+	self.teamIDs['san antonio spurs'] = 31
+	self.teamIDs['torronto raptors'] = 38
+	self.teamIDs['utah jazz'] = 40
+	self.teamIDs['washington wizards'] = 41
+
     @intent_file_handler('scoreboard.nba.intent')
     def handle_scoreboard_nba(self, message):
         team = str(message.data.get('team'))
