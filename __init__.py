@@ -14,6 +14,33 @@ header = {
 # date = datetime.now()
 # d = date.strftime('%Y-%m-%d')
 
+# pass in day, month, year as numerical string e.g. '01', '01', '2001'
+def search_date(teamId, day, month, year):
+    r = requests.get(API_url + str(teamId), headers=header)
+    json_data = r.json()
+    results = int(json_data['api']['results'])
+
+    dateString = ''
+
+    i = results - 1
+
+    while True:
+        dateString = str(json_data['api']['games'][i]['startTimeUTC'])
+
+        if dateString[0:4] == year and dateString[5:7] == month and dateString[8:10] == day:
+            break
+
+        i -= 1
+
+        if i <= 0:
+            return 0, 0, 0, 0
+
+    v_score = str(json_data['api']['games'][i]['vTeam']['score']['points'])
+    h_score = str(json_data['api']['games'][i]['hTeam']['score']['points'])
+    v_team = str(json_data['api']['games'][i]['vTeam']['fullName'])
+    h_team = str(json_data['api']['games'][i]['hTeam']['fullName'])
+
+    return v_team, v_score, h_team, h_score
 
 def search_game(teamId):
     r = requests.get(API_url + str(teamId), headers=header)
@@ -89,6 +116,14 @@ class NbaScoreboard(MycroftSkill):
 
         #TODO pass through an API search
         
+        # pass day, month, year as string
+        v_team, v_score, h_team, h_score = search_date(teamId, day, month, year)
+
+        if v_score == '0' and h_score == '0':
+            # print not found dialog
+        else:
+            # print utterance
+
         #TODO speak new variables to dialog
 
 
