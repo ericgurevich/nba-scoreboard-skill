@@ -49,6 +49,12 @@ class NbaScoreboard(MycroftSkill):
 
     def initialize(self):
         self.register_entity_file('team.entity')
+        self.register_entity_file('month.entity')
+        self.register_entity_file('day.entity')
+        self.register_entity_file("year.entity")
+
+        # TODO match api month, day, and year formats to entity format
+
 
         # match team names to api team IDs, obtained from get_teams.py
         self.teamIDs = {'hawks': 1, 'celtics': 2, 'bullets': 3, 'nets': 4, 'hornets': 5, 'bulls': 6, 'cavaliers': 7, 'mavericks': 8, 'nuggets': 9, 'pistons': 10, 'warriors': 11, 'long-lions': 12, 'maccabi haifa': 13, 'rockets': 14, 'pacers': 15, 'clippers': 16, 'lakers': 17, 'united': 18, 'grizzlies': 19, 'heat': 20, 'bucks': 21, 'timberwolves': 22, 'pelicans': 23, 'knicks': 24, 'thunder': 25, 'magic': 26, '76ers': 27, 'suns': 28, 'trail blazers': 29, 'kings': 33, 'spurs': 31, 'sharks': 32, 'team giannis': 34, 'team lebron': 35, 'away': 36, 'home':
@@ -76,6 +82,14 @@ class NbaScoreboard(MycroftSkill):
                 'score2': h_score})
         else:
             self.speak_dialog('NotFound')
+
+    @intent_file_handler('SpecificDate.intent')
+    def handle_specific_date(self, message):
+        # TODO handle variables from utterance
+
+        #TODO pass through an API search
+        
+        #TODO speak new variables to dialog
 
 
 def create_skill():
