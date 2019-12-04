@@ -80,7 +80,60 @@ class NbaScoreboard(MycroftSkill):
         self.register_entity_file('day.entity')
         self.register_entity_file("year.entity")
 
-        # TODO match api month, day, and year formats to entity format
+        # match api month and day formats to entity format
+        self.months = {'january': '01', 
+                'february': '02', 
+                'march': '03',
+                'april': '04',
+                'may': '05',
+                'june': '06',
+                'july': '07',
+                'august': '08',
+                'september': '09',
+                'october': '10',
+                'november': '11',
+                'december': '12'}
+
+        self.days = {'1st': '01',
+                '2nd': '02',
+                '3rd': '03',
+                '4th': '04',
+                '5th': '05',
+                '6th': '06',
+                '7th': '07',
+                '8th': '08',
+                '9th': '09',
+                '10th': '10',
+                '11th': '11',
+                '12th': '12',
+                '13th': '13',
+                '14th': '14',
+                '15th': '15',
+                '16th': '16',
+                '17th': '17',
+                '18th': '18',
+                '19th': '19',
+                '20th': '20',
+                '21st': '21',
+                '22nd': '22',
+                '23rd': '23',
+                '24th': '24',
+                '25th': '25',
+                '26th': '26',
+                '27th': '27',
+                '28th': '28',
+                '29th': '29',
+                '30th': '30',
+                '31st': '31',
+                '1': '01',
+                '2': '02',
+                '3': '03',
+                '4': '04',
+                '5': '05',
+                '6': '06',
+                '7': '07',
+                '8': '08',
+                '9': '09'}
 
 
         # match team names to api team IDs, obtained from get_teams.py
@@ -112,19 +165,40 @@ class NbaScoreboard(MycroftSkill):
 
     @intent_file_handler('SpecificDate.intent')
     def handle_specific_date(self, message):
-        # TODO handle variables from utterance
+        # handle variables from utterance
+        day = str(message.data.get('day'))
+        month= str(message.data.get('month'))
+        year = str(message.data.get('year'))
+        team = str(message.data.get('team'))
 
-        #TODO pass through an API search
+
+        # change utterance to formatted variable for API
+        if team is not None and team in self.teamIDs:
+            teamId = int(self.teamIDs[team])
+
+        if month is not None and month in self.months:
+            month = self.months[month]
+
+        if day is not None and day in self.days:
+            day = self.days[day]
+        
         
         # pass day, month, year as string
         v_team, v_score, h_team, h_score = search_date(teamId, day, month, year)
-
+        
+        #TODO fix score not found vs team not found?
+        #speak new variables to dialog
         if v_score == '0' and h_score == '0':
             # print not found dialog
+            self.speak_dialog('NotFound')
         else:
             # print utterance
+            self.speak_dialog('Score', {
+                'team1': v_team,
+                'score1': v_score,
+                'team2': h_team,
+                'score2': h_score})
 
-        #TODO speak new variables to dialog
 
 
 def create_skill():
