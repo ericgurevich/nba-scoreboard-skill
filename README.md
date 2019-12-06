@@ -8,11 +8,11 @@ This skill gets the score of an nba game based on the team and date the user pro
 * "What is the score of the most recent bulls game?"
 
 ## Credits
-john-ammon (John Ammon)
-ericgurevich (Eric Gurevich)
-dsh3406 (Su Hyun Do)
-beckmeghane (Meghan Beck)
-blowthemandown (James Piatt)
+* john-ammon (John Ammon)
+* ericgurevich (Eric Gurevich)
+* dsh3406 (Su Hyun Do)
+* beckmeghane (Meghan Beck)
+* blowthemandown (James Piatt)
 
 ## Category
 **Entertainment**
